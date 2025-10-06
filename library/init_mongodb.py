@@ -4,16 +4,14 @@ import traceback
 import pymongo
 import os, sys
 
-PROJECT_FOLDER_LOCATION = os.getenv("PROJECT_FOLDER_LOCATION")
-sys.path.append(PROJECT_FOLDER_LOCATION)
+project_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(project_folder_path)
 from library.init_logger import get_logger
-
 g_mongo_client = None
-
 
 def get_configurations():
     logger = get_logger()
-    CONFIG_FILE = os.path.join(PROJECT_FOLDER_LOCATION, "config.ini")
+    CONFIG_FILE = os.path.join(project_folder_path, "config.ini")
     if not os.path.exists(CONFIG_FILE):
         logger.critical(f"config.ini file doesn't exist in {CONFIG_FILE}")
         exit()
